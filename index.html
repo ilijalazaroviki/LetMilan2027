@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Даблин до Милано | Одбројување</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            background: linear-gradient(135deg, #001f3f 0%, #004080 50%, #0066cc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            background: rgba(0, 31, 63, 0.6);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #e0f2fe;
+        }
+
+        .route {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #7dd3fc;
+            font-weight: 600;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .time-box span {
+            display: block;
+        }
+
+        .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #bae6fd;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        .flight-info {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .number { font-size: 1.5rem; }
+            .countdown { gap: 8px; }
+            .time-box { padding: 10px 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Подгответе се за полетување!</h1>
+        <div class="route">🛫 Даблин (DUB) ➔ 🛬 Милано (MXP/LIN)</div>
+
+        <div class="countdown" id="countdown">
+            <div class="time-box">
+                <span class="number" id="days">00</span>
+                <span class="label">Денови</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="hours">00</span>
+                <span class="label">Часови</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Минути</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Секунди</span>
+            </div>
+        </div>
+
+        <div class="flight-info">
+            Време на лет: <strong>30 Јануари 2027 во 05:45</strong> • Летот е опериран од <strong>KLM</strong>
+        </div>
+    </div>
+
+    <script>
+        // Дата на летот: 30 Јануари 2027 во 05:45 часот
+        const flightDate = new Date("January 30, 2027 05:45:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = flightDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "<h2>Летот е започнат или завршен!</h2>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+</body>
+</html>
